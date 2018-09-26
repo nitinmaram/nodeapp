@@ -1,8 +1,11 @@
 # nodeapp
 
-#To read a file from the disk :
+to start the server:
 run npm start filepath
-and go to:
+eg: npm start sample_input.txt
+
+
+#To read a file from the disk :
 http://localhost:3001/readFile
 
 #To find the product of 2 numbers
