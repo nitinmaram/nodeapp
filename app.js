@@ -46,24 +46,30 @@ app.get('/product/:p1/:p2',function(req,res){
 
  app.get('/string/:str',function(req,res){
      var str = req.params.str
-     console.log(typeof parseInt(str),"type");
-     var arr = str.split("")
-     var letter = ''
-     for (var i = 0; i < arr.length; i++) {
-         var flag = true;
-         for (var j = 0; j < arr.length; j++)
-         {
-           if (arr[i] === arr[j] && i != j) {
-             flag = false;
+     if(isNaN(parseInt(str))){
+       var arr = str.split("")
+       var letter = ''
+       for (var i = 0; i < arr.length; i++) {
+           var flag = true;
+           for (var j = 0; j < arr.length; j++)
+           {
+             if (arr[i] === arr[j] && i != j) {
+               flag = false;
+             }
            }
-         }
-         if (flag) {
-           letter = arr[i];
-           break;
-         }
+           if (flag) {
+             letter = arr[i];
+             break;
+           }
+       }
+       res.write(letter); //write a response
+       res.end(); //end the response
      }
-     res.write(letter); //write a response
-     res.end(); //end the response
+     else{
+       res.sendStatus(404);
+       res.end(); //end the response
+     }
+
   })
 
   app.get('/writeFile/:content',function(req,res){

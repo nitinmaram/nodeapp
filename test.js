@@ -16,13 +16,6 @@ describe("Reading file content from disk api test cases",function(){
 })
 
 describe("Product api test cases",function(){
-  var n1 = 2;
-  var n2 = 3;
-  var product;
-
-  before(function () {
-   product = n1 * n2;
-  });
   it('Inputs must be numbers',function(done) {
     chai.request(app).get(`/product/x/y`).end(function(err,res){
            expect(res).to.have.status(404);
@@ -40,8 +33,7 @@ describe("Product api test cases",function(){
         })
 
   it('Get the product of 2 numbers',function(done) {
-    chai.request(app).get(`/product/${n1}/${n2}`).end(function(err,res){
-        console.log(`/product/:${n1}/:${n2}`,'res');
+    chai.request(app).get(`/product/2/3`).end(function(err,res){
          expect(res).to.have.status(200);
          expect(res.text).to.equal(`6`);
          done();
@@ -50,12 +42,6 @@ describe("Product api test cases",function(){
 })
 
 describe("1st non repitative character api test cases",function(){
-  var str ;
-  var output;
-  before(function () {
-    str = 'nitin' ;
-    output = 't';
-   });
    it('When no Input is passed',function(done) {
        chai.request(app).get(`/string`).end(function(err,res){
               expect(res).to.have.status(404);
@@ -63,9 +49,16 @@ describe("1st non repitative character api test cases",function(){
               done();
             })
        })
+       it('When Input is a number',function(done) {
+           chai.request(app).get(`/string/123`).end(function(err,res){
+                  expect(res).to.have.status(404);
+                  expect(res.text).to.equal(`Not Found`);
+                  done();
+                })
+           })
     it('Print the 1st non repitative character',function(done) {
-      chai.request(app).get(`/string/${str}`).end(function(err,res){
-            expect(res.text).to.equal(output);
+      chai.request(app).get(`/string/nitin`).end(function(err,res){
+            expect(res.text).to.equal(`t`);
             expect(res.status).to.equal(200);
             done();
          })
